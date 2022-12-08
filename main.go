@@ -5,9 +5,9 @@ import (
 	"encoding/binary"
 	"fmt"
 	"github.com/Trisia/gosysproxy"
-	"github.com/wjpxxx/letgo/encry"
-	"github.com/wjpxxx/letgo/file"
-	"github.com/wjpxxx/letgo/lib"
+	"github.com/wjp-letgo/letgo/encry"
+	"github.com/wjp-letgo/letgo/file"
+	"github.com/wjp-letgo/letgo/lib"
 	"io"
 	"net"
 	"net/url"
@@ -28,7 +28,7 @@ func main() {
 
 }
 
-var remoteLocalIp = "0.0.0.0"   //服务器内网IP
+var remoteLocalIp = "0.0.0.0" //服务器内网IP
 var remoteIp = "43.135.70.43" //服务器外网IP
 var BS = 4096
 
@@ -106,14 +106,14 @@ func handleLocal(conn net.Conn) {
 			dist, err = net.Dial("tcp", remoteIp+":4567")
 			//dist, err = net.Dial("tcp", address)
 			if err != nil {
-				fmt.Println("走代理 local连接目标失败",domain, err.Error())
+				fmt.Println("走代理 local连接目标失败", domain, err.Error())
 				return
 			}
 		} else {
 			//不走代理
 			dist, err = net.Dial("tcp", address)
 			if err != nil {
-				fmt.Println("不走代理 local连接目标失败",domain, err.Error())
+				fmt.Println("不走代理 local连接目标失败", domain, err.Error())
 				return
 			}
 		}
@@ -135,7 +135,7 @@ func handleLocal(conn net.Conn) {
 			} else {
 				dist.Write(buffer)
 			}
-			fmt.Println("未知协议", "method:", method, "host:", host, "address:", address, "domain:", domain,"tp:",tp)
+			fmt.Println("未知协议", "method:", method, "host:", host, "address:", address, "domain:", domain, "tp:", tp)
 		}
 		if tp {
 			closed := make(chan bool, 2)
@@ -234,6 +234,7 @@ func handle(conn net.Conn) {
 	<-closed
 	fmt.Println("退出程序")
 }
+
 //走代理的域名
 var needProxy []string
 
@@ -433,9 +434,9 @@ func UnPack(conn net.Conn) []byte {
 	return pack
 }
 
-func init(){
-	ct:=file.GetContent(".proxy")
-	remoteIp=file.GetContent(".ip")
-	lib.StringToObject(ct,&needProxy)
+func init() {
+	ct := file.GetContent(".proxy")
+	remoteIp = file.GetContent(".ip")
+	lib.StringToObject(ct, &needProxy)
 	//fmt.Println(needProxy)
 }

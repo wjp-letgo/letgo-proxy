@@ -4,5 +4,5 @@ go 1.12
 
 require (
 	github.com/Trisia/gosysproxy v1.0.0
-	github.com/wjpxxx/letgo v0.2.27
+	github.com/wjp-letgo/letgo v0.0.4
 )
